@@ -10,7 +10,7 @@ import Attendance from "./components/attendance";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/college-compass/">
       <Routes>
         <Route path="/" element={<Login/>}/>
         <Route path="/signup" element={<Signup />} />  
