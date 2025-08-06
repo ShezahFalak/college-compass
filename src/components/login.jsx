@@ -69,7 +69,7 @@ const Login = () => {
           <button type="submit">Login</button>
         </form>
         <p className="text-center mt-3">
-  Don't have an account? <a href="/signup">Sign up here</a>
+  Don't have an account? <a href="/college-compass/signup">Sign up here</a>
 </p>
 
       </div>
