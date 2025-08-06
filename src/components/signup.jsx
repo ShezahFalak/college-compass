@@ -18,7 +18,7 @@ const Signup = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       console.log("Signup successful. User:", userCredential.user);
       alert("Account created successfully!");
-      navigate("/login"); // Usually after signup, send user to login page
+      navigate("/"); // Usually after signup, send user to login page
     } catch (err) {
       console.error("Signup error:", err.code, err.message);
       setError(err.message);
