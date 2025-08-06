@@ -11,16 +11,16 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    console.log("Signup form submitted with:", email, password);
     setError("");
+    console.log("Attempting signup with:", email, password);
+
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      console.log("User created:", userCredential.user);
+      console.log("Signup successful. User:", userCredential.user);
       alert("Account created successfully!");
-      navigate("/dashboard"); // or "/login" if you prefer
+      navigate("/login"); // Usually after signup, send user to login page
     } catch (err) {
-      console.error("Signup error code:", err.code);
-      console.error("Signup error message:", err.message);
+      console.error("Signup error:", err.code, err.message);
       setError(err.message);
     }
   };
@@ -69,7 +69,10 @@ const Signup = () => {
               {error}
             </div>
           )}
-          <button type="submit" style={{ width: "100%", padding: "10px", backgroundColor: "#007bff", color: "white", border: "none", cursor: "pointer" }}>
+          <button
+            type="submit"
+            style={{ width: "100%", padding: "10px", backgroundColor: "#007bff", color: "white", border: "none", cursor: "pointer" }}
+          >
             Sign Up
           </button>
           <p style={{ textAlign: "center", marginTop: "15px" }}>
