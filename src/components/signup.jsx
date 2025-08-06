@@ -11,12 +11,16 @@ const Signup = () => {
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    console.log("Signup form submitted with:", email, password);
     setError("");
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      console.log("User created:", userCredential.user);
       alert("Account created successfully!");
-      navigate("/dashboard"); // or redirect to login if preferred
+      navigate("/dashboard"); // or "/login" if you prefer
     } catch (err) {
+      console.error("Signup error code:", err.code);
+      console.error("Signup error message:", err.message);
       setError(err.message);
     }
   };
@@ -31,13 +35,11 @@ const Signup = () => {
         alignItems: "center",
       }}
     >
-      <div className="login-card">
+      <div className="login-card" style={{ width: "350px", padding: "20px", boxShadow: "0 0 10px rgba(0,0,0,0.1)" }}>
         <h2 className="text-center mb-4">Sign Up</h2>
         <form onSubmit={handleSignup}>
           <div className="mb-3">
-            <label htmlFor="email" className="form-label fw-semibold">
-              Email address
-            </label>
+            <label htmlFor="email" className="form-label fw-semibold">Email address</label>
             <input
               type="email"
               id="email"
@@ -46,31 +48,33 @@ const Signup = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
               autoFocus
+              style={{ width: "100%", padding: "8px", marginBottom: "12px" }}
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="form-label fw-semibold">
-              Password
-            </label>
+            <label htmlFor="password" className="form-label fw-semibold">Password</label>
             <input
               type="password"
               id="password"
-              placeholder="Enter a password"
+              placeholder="Enter a password (min 6 chars)"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              minLength={6}
+              style={{ width: "100%", padding: "8px", marginBottom: "12px" }}
             />
           </div>
           {error && (
-            <div className="alert alert-danger text-center" role="alert">
+            <div className="alert alert-danger text-center" role="alert" style={{ color: "red", marginBottom: "12px" }}>
               {error}
             </div>
           )}
-          <button type="submit">Sign Up</button>
-          <div>
-            <br></br>
-          <a href="/">Go back to Login</a>
-          </div>
+          <button type="submit" style={{ width: "100%", padding: "10px", backgroundColor: "#007bff", color: "white", border: "none", cursor: "pointer" }}>
+            Sign Up
+          </button>
+          <p style={{ textAlign: "center", marginTop: "15px" }}>
+            Already have an account? <a href="/login">Login here</a>
+          </p>
         </form>
       </div>
     </div>
